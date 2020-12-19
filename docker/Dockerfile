@@ -1,4 +1,6 @@
 FROM ubuntu:latest
+ENV TZ=Asia/VietNam
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV ANDROID_HOME=/opt/android/sdk/
 ENV ANDROID_NDK_ROOT=/opt/android-ndk-r16b/
@@ -55,7 +57,7 @@ RUN curl -LS https://dl.google.com/android/repository/sdk-tools-linux-3859397.zi
     && unzip -q android-tools.zip -d /opt/android/sdk/ \
     && rm android-tools.zip \
     && cd /opt/android/sdk/tools/bin && yes | ./sdkmanager --licenses \
-    && ./sdkmanager "platform-tools" "platforms;android-24" "build-tools;24.0.3" \
+    && ./sdkmanager "platform-tools" "platforms;android-24" "build-tools;25.0.3" \
     && yes | ./sdkmanager --licenses
  
 # Abhängigkeiten für QT-Installer

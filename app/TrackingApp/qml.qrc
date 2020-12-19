@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/view">
+        <file alias="MainMenu.qml">qml/View/MainMenu/MainMenu.qml</file>
+        <file alias="BasicSetting.qml">qml/View/BasicSetting/BasicSetting.qml</file>
+    </qresource>
+    <qresource prefix="/guiComponent"/>
+</RCC>
