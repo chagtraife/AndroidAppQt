@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-ENV TZ=Asia/VietNam
+ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV ANDROID_HOME=/opt/android/sdk/

@@ -1,5 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QAndroidJniObject>
+#include  <QDebug>
 
 int main(int argc, char *argv[])
 {
@@ -16,5 +18,11 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
+//     QAndroidJniObject::callStaticMethod<jint>
+//                                ("org/qtproject/trackingapp/OrientationChanger" // class name
+//                                , "change" // method name
+//                                , "(I)I" // signature
+//                                , 1);
+    //    qDebug()<<"retVal" + QString::number(retVal);
     return app.exec();
 }

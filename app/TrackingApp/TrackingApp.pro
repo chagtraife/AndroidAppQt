@@ -1,6 +1,9 @@
 QT += quick
+QT += androidextras
 
 CONFIG += c++11
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android-sources
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -18,6 +21,10 @@ SOURCES += \
         domain/domain.cpp \
         main.cpp \
         BasicSetting/basicsetting.cpp
+
+OTHER_FILES += \
+    android-sources/src/org/qtproject/trackingapp/OrientationChanger.java \
+    android-sources/AndroidManifest.xml
 
 RESOURCES += qml.qrc \
 
@@ -40,3 +47,22 @@ HEADERS += \
     MainMenu/MainMenu.hpp \
     Sensor/Sensor.hpp \
     domain/domain.hpp
+
+#target.path = $$PWD
+#INSTALLS += target
+
+DISTFILES += \
+    android-sources/AndroidManifest.xml \
+    android-sources/build.gradle \
+    android-sources/build.gradle \
+    android-sources/gradle/wrapper/gradle-wrapper.jar \
+    android-sources/gradle/wrapper/gradle-wrapper.jar \
+    android-sources/gradle/wrapper/gradle-wrapper.properties \
+    android-sources/gradle/wrapper/gradle-wrapper.properties \
+    android-sources/gradlew \
+    android-sources/gradlew \
+    android-sources/gradlew.bat \
+    android-sources/gradlew.bat \
+    android-sources/res/values/libs.xml \
+    android-sources/res/values/libs.xml \
+

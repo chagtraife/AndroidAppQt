@@ -3,5 +3,15 @@
         <file alias="MainMenu.qml">qml/View/MainMenu/MainMenu.qml</file>
         <file alias="BasicSetting.qml">qml/View/BasicSetting/BasicSetting.qml</file>
     </qresource>
-    <qresource prefix="/guiComponent"/>
+    <qresource prefix="/guiComponent">
+        <file alias="Map.qml">qml/Component/Map.qml</file>
+        <file alias="Target.qml">qml/Component/Target.qml</file>
+        <file alias="Scope.qml">qml/Component/Scope.qml</file>
+        <file alias="ScanButton.qml">qml/Component/ScanButton.qml</file>
+    </qresource>
+    <qresource prefix="/resource">
+        <file>resource/9bb70ea3b5d7909d22b61def7f0f0e67.jpg</file>
+        <file alias="M_menu.png">resource/M_menu.png</file>
+        <file alias="menu.png">resource/menu.png</file>
+    </qresource>
 </RCC>
