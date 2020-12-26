@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.11.1, 2020-12-22T23:31:38. -->
+<!-- Written by QtCreator 4.11.1, 2020-12-24T02:08:27. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -592,7 +592,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/thang/Desktop/workplace/AndroidAppQt/app/build-TrackingApp-Android_for_Clang_Qt_5_14_2_for_Android-Debug</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

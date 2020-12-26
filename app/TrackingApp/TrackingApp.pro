@@ -1,5 +1,6 @@
 QT += quick
 QT += androidextras
+QT += sensors
 
 CONFIG += c++11
 

@@ -2,10 +2,8 @@ import QtQuick 2.0
 import QtGraphicalEffects 1.12
 
 Item {
-    property real angleScope: Math.PI / 4
     width: 100
     height: 100
-
     Rectangle {
         anchors.centerIn: parent
         width: 10
@@ -37,8 +35,7 @@ Item {
             // move the cursor to the center
             ctx.moveTo(centerX, centerY)
             // add the arc including the line to the beginning of the arc
-            ctx.arc(centerX, centerY, radius, angleScope - Math.PI / 8,
-                    angleScope + Math.PI / 8, false)
+            ctx.arc(centerX, centerY, radius, -Math.PI / 8, Math.PI / 8, false)
             // add the line back to the center
             ctx.lineTo(centerX, centerY)
             // fill the piece

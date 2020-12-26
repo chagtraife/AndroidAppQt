@@ -3,6 +3,9 @@ import QtQuick.Window 2.12
 import "qrc:/guiComponent"
 import QtQuick.Controls 2.13
 
+//import QtSensors 5.15
+import QtSensors 5.9
+
 Window {
     visible: true
     width: Screen.width //360
@@ -60,6 +63,19 @@ Window {
             anchors.centerIn: parent
             width: 100
             height: 100
+        }
+
+        Compass {
+            id: compass
+            property int angle: 0
+            // Turn on the sensor
+            active: true
+            onReadingChanged: {
+                compass.angle = (reading.azimuth + 270) % 360
+            }
+            onAngleChanged: {
+                scope.rotation = compass.angle
+            }
         }
         Target {
             x: 200
