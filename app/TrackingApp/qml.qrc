@@ -2,16 +2,28 @@
     <qresource prefix="/view">
         <file alias="MainMenu.qml">qml/View/MainMenu/MainMenu.qml</file>
         <file alias="BasicSetting.qml">qml/View/BasicSetting/BasicSetting.qml</file>
+        <file alias="MainWindow.qml">qml/View/MainWindow.qml</file>
+        <file alias="SplashScreen.qml">qml/View/SplashScreen.qml</file>
+        <file alias="BluetoothAlarmDialog.qml">qml/View/BluetoothAlarmDialog.qml</file>
+        <file alias="Connect.qml">qml/View/Connect.qml</file>
+        <file alias="Tracking.qml">qml/View/Tracking.qml</file>
     </qresource>
     <qresource prefix="/guiComponent">
         <file alias="Map.qml">qml/Component/Map.qml</file>
         <file alias="Target.qml">qml/Component/Target.qml</file>
         <file alias="Scope.qml">qml/Component/Scope.qml</file>
         <file alias="ScanButton.qml">qml/Component/ScanButton.qml</file>
+        <file alias="AppSettings.qml">qml/Component/AppSettings.qml</file>
+        <file alias="qmldir">qml/Component/qmldir</file>
+        <file alias="Button.qml">qml/Component/Button.qml</file>
+        <file alias="BottomLine.qml">qml/Component/BottomLine.qml</file>
+        <file alias="TitleBar.qml">qml/Component/TitleBar.qml</file>
     </qresource>
     <qresource prefix="/resource">
         <file>resource/9bb70ea3b5d7909d22b61def7f0f0e67.jpg</file>
         <file alias="M_menu.png">resource/M_menu.png</file>
         <file alias="menu.png">resource/menu.png</file>
+        <file alias="bt_off_to_on.png">resource/bt_off_to_on.png</file>
+        <file alias="logo.png">resource/logo.png</file>
     </qresource>
 </RCC>

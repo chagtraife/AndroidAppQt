@@ -1,6 +1,7 @@
 QT += quick
 QT += androidextras
 QT += sensors
+QT += bluetooth
 
 CONFIG += c++11
 
@@ -19,6 +20,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         MainMenu/MainMenu.cpp \
         Sensor/Sensor.cpp \
+        domain/connectionhandler.cpp \
+        domain/devicefinder.cpp \
+        domain/devicehandler.cpp \
+        domain/deviceinfo.cpp \
         domain/domain.cpp \
         main.cpp \
         BasicSetting/basicsetting.cpp
@@ -47,6 +52,10 @@ HEADERS += \
     BasicSetting/BasicSetting.hpp \
     MainMenu/MainMenu.hpp \
     Sensor/Sensor.hpp \
+    domain/connectionhandler.hpp \
+    domain/devicefinder.hpp \
+    domain/devicehandler.hpp \
+    domain/deviceinfo.hpp \
     domain/domain.hpp
 
 #target.path = $$PWD
