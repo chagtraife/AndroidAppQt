@@ -2,12 +2,11 @@
 #include "deviceinfo.hpp"
 #include <QtEndian>
 #include <QRandomGenerator>
+#include <QAndroidJniObject>
 
 DeviceHandler::DeviceHandler(QObject *parent) :QObject(parent),
     m_foundHeartRateService(false),
-    m_measuring(false),
-    m_currentValue(0),
-    m_min(0), m_max(0), m_sum(0), m_avg(0), m_calories(0)
+    m_measuring(false)
 {
 
 }
@@ -47,29 +46,41 @@ void DeviceHandler::setDevice(DeviceInfo *device)
     if (m_currentDevice) {
 
         // Make connections
-        m_control = QLowEnergyController::createCentral(m_currentDevice->getDevice(), this);
-        m_control->setRemoteAddressType(m_addressType);
+//        m_control = QLowEnergyController::createCentral(m_currentDevice->getDevice(), this);
+//        m_control = QLowEnergyController::createPeripheral(this);
+//        m_control->setRemoteAddressType(m_addressType);
         //! [Connect-Signals-2]
-        connect(m_control, &QLowEnergyController::serviceDiscovered,
-                this, &DeviceHandler::serviceDiscovered);
-        connect(m_control, &QLowEnergyController::discoveryFinished,
-                this, &DeviceHandler::serviceScanDone);
+//        connect(m_control, &QLowEnergyController::serviceDiscovered,
+//                this, &DeviceHandler::serviceDiscovered);
+//        connect(m_control, &QLowEnergyController::discoveryFinished,
+//                this, &DeviceHandler::serviceScanDone);
 
-        connect(m_control, static_cast<void (QLowEnergyController::*)(QLowEnergyController::Error)>(&QLowEnergyController::error),
-                this, [this](QLowEnergyController::Error error) {
-            Q_UNUSED(error);
-            qDebug("Cannot connect to remote device.");
-        });
-        connect(m_control, &QLowEnergyController::connected, this, [this]() {
-            qDebug("Controller connected. Search services...");
-            m_control->discoverServices();
-        });
-        connect(m_control, &QLowEnergyController::disconnected, this, [this]() {
-            qDebug("LowEnergy controller disconnected");
-        });
+//        connect(m_control, static_cast<void (QLowEnergyController::*)(QLowEnergyController::Error)>(&QLowEnergyController::error),
+//                this, [this](QLowEnergyController::Error error) {
+//            Q_UNUSED(error);
+//            qDebug("Cannot connect to remote device.");
+//        });
+//        connect(m_control, &QLowEnergyController::connected, this, [this]() {
+//            qDebug("Controller connected. Search services...");
+//            m_control->discoverServices();
+//        });
+//        connect(m_control, &QLowEnergyController::disconnected, this, [this]() {
+//            qDebug("LowEnergy controller disconnected");
+//        });
 
         // Connect
-        m_control->connectToDevice();
+//        m_control->connectToDevice();
+//        serviceScanDone();
+
+        QString addr =  m_currentDevice->getDevice().address().toString();
+        qDebug() << "Thang addr at C++: " << addr;
+        qDebug() << "Thang: call java function ";
+        QAndroidJniObject javaAddr = QAndroidJniObject::fromString(addr);
+        bool retVal = QAndroidJniObject::callStaticMethod<jint>
+                                ("qtconnectivity/BluetoothLowEnergy" // class name
+                                , "getBLEadvertisingdata" // method name
+                                , "(Ljava/lang/String;)I" // signature
+                                ,javaAddr.object<jstring>());
     }
 }
 
@@ -77,11 +88,6 @@ void DeviceHandler::startMeasurement()
 {
     if (alive()) {
         m_start = QDateTime::currentDateTime();
-        m_min = 0;
-        m_max = 0;
-        m_avg = 0;
-        m_sum = 0;
-        m_calories = 0;
         m_measuring = true;
         m_measurements.clear();
         emit measuringChanged();
@@ -97,7 +103,8 @@ void DeviceHandler::stopMeasurement()
 
 void DeviceHandler::serviceDiscovered(const QBluetoothUuid &gatt)
 {
-    if (gatt == QBluetoothUuid(QBluetoothUuid::HeartRate)) {
+    qDebug()<<" Thang: serviceDiscovered: " << gatt ;
+    if (gatt == QBluetoothUuid(QBluetoothUuid::TxPower)) {
         qDebug("Heart Rate service discovered. Waiting for service scan to be done...");
         m_foundHeartRateService = true;
     }
@@ -116,7 +123,7 @@ void DeviceHandler::serviceScanDone()
 
     // If heartRateService found, create new service
     if (m_foundHeartRateService)
-        m_service = m_control->createServiceObject(QBluetoothUuid(QBluetoothUuid::HeartRate), this);
+        m_service = m_control->createServiceObject(QBluetoothUuid(QBluetoothUuid::TxPower), this);
 
     if (m_service) {
         connect(m_service, &QLowEnergyService::stateChanged, this, &DeviceHandler::serviceStateChanged);
@@ -124,7 +131,7 @@ void DeviceHandler::serviceScanDone()
         connect(m_service, &QLowEnergyService::descriptorWritten, this, &DeviceHandler::confirmedDescriptorWrite);
         m_service->discoverDetails();
     } else {
-        qDebug("Heart Rate Service not found.");
+        qDebug("TxPower Service not found.");
     }
 }
 
@@ -217,52 +224,18 @@ bool DeviceHandler::alive() const
     return false;
 }
 
-int DeviceHandler::hr() const
-{
-    return m_currentValue;
-}
-
 int DeviceHandler::time() const
 {
     return m_start.secsTo(m_stop);
 }
 
-int DeviceHandler::maxHR() const
-{
-    return m_max;
-}
-
-int DeviceHandler::minHR() const
-{
-    return m_min;
-}
-
-float DeviceHandler::average() const
-{
-    return m_avg;
-}
-
-float DeviceHandler::calories() const
-{
-    return m_calories;
-}
-
 void DeviceHandler::addMeasurement(int value)
 {
-    m_currentValue = value;
-
     // If measuring and value is appropriate
     if (m_measuring && value > 30 && value < 250) {
 
         m_stop = QDateTime::currentDateTime();
         m_measurements << value;
-
-        m_min = m_min == 0 ? value : qMin(value, m_min);
-        m_max = qMax(value, m_max);
-        m_sum += value;
-        m_avg = (double)m_sum / m_measurements.size();
-        m_calories = ((-55.0969 + (0.6309 * m_avg) + (0.1988 * 94) + (0.2017 * 24)) / 4.184) * 60 * time()/3600;
     }
-
     emit statsChanged();
 }

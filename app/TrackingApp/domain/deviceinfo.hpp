@@ -9,6 +9,7 @@ class DeviceInfo: public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString deviceName READ getName NOTIFY deviceChanged)
+    Q_PROPERTY(QString deviceRssid READ getRssid NOTIFY deviceChanged)
     Q_PROPERTY(QString deviceAddress READ getAddress NOTIFY deviceChanged)
 
 public:
@@ -16,6 +17,7 @@ public:
 
     void setDevice(const QBluetoothDeviceInfo &device);
     QString getName() const;
+    QString getRssid() const;
     QString getAddress() const;
     QBluetoothDeviceInfo getDevice() const;
 

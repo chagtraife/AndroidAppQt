@@ -17,6 +17,11 @@ QString DeviceInfo::getName() const
     return m_device.name();
 }
 
+QString DeviceInfo::getRssid() const
+{
+    return QString::number(m_device.rssi());
+}
+
 QString DeviceInfo::getAddress() const
 {
     return m_device.address().toString();

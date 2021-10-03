@@ -75,4 +75,5 @@ DISTFILES += \
     android-sources/gradlew.bat \
     android-sources/res/values/libs.xml \
     android-sources/res/values/libs.xml \
+    android-sources/src/qtconnectivity/BluetoothLowEnergy.java
 

@@ -61,8 +61,19 @@ Item {
                     text: modelData.deviceName
                     anchors.top: parent.top
                     anchors.topMargin: parent.height * 0.1
-                    anchors.leftMargin: parent.height * 0.1
                     anchors.left: parent.left
+                    anchors.leftMargin: parent.height * 0.1
+                    color: AppSettings.textColor
+                }
+
+                Text {
+                    id: rssid
+                    font.pixelSize: AppSettings.smallFontSize
+                    text: modelData.deviceRssid
+                    anchors.top: parent.top
+                    anchors.topMargin: parent.height * 0.1
+                    anchors.right: parent.right
+                    anchors.rightMargin: parent.height * 0.1
                     color: AppSettings.textColor
                 }
 
@@ -72,8 +83,8 @@ Item {
                     text: modelData.deviceAddress
                     anchors.bottom: parent.bottom
                     anchors.bottomMargin: parent.height * 0.1
-                    anchors.rightMargin: parent.height * 0.1
                     anchors.right: parent.right
+                    anchors.rightMargin: parent.height * 0.1
                     color: Qt.darker(AppSettings.textColor)
                 }
             }

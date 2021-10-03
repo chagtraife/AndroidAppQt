@@ -4,10 +4,7 @@ import "qrc:/guiComponent"
 
 Item {
     id: conent
-    anchors.top: titleBar.bottom
-    anchors.bottom: parent.bottom
-    anchors.left: parent.left
-    anchors.right: parent.right
+    anchors.fill: parent
     Map {
         id: background
         anchors.fill: parent
