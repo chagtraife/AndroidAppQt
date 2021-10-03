@@ -76,7 +76,9 @@ void DeviceHandler::setDevice(DeviceInfo *device)
         qDebug() << "Thang addr at C++: " << addr;
         qDebug() << "Thang: call java function ";
         QAndroidJniObject javaAddr = QAndroidJniObject::fromString(addr);
-        bool retVal = QAndroidJniObject::callStaticMethod<jint>
+
+        QAndroidJniObject bluetoothLowEnergy;
+        bool retVal = bluetoothLowEnergy.callMethod<jint>
                                 ("qtconnectivity/BluetoothLowEnergy" // class name
                                 , "getBLEadvertisingdata" // method name
                                 , "(Ljava/lang/String;)I" // signature

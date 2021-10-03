@@ -1,0 +1,1 @@
+add library for beacon: add .aar file(download here: https://altbeacon.github.io/android-beacon-library/download.html) to libs folder (/app\TrackingApp\android-sources\libs)
